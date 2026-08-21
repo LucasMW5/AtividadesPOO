@@ -1,7 +1,8 @@
 public class Musica {
 
+    private static int proximoId = 1;
+
     private int id;
-    private int proximoId = 1;
     private String titulo;
     private String artista;
     private int duracaoSegundos;
@@ -10,6 +11,7 @@ public class Musica {
     public Musica(String titulo, String artista, int duracaoSegundos) {
         this.id = proximoId;
         proximoId++;
+
         this.titulo = titulo;
         this.artista = artista;
         this.duracaoSegundos = duracaoSegundos;
@@ -43,8 +45,7 @@ public class Musica {
     public String getDuracaoFormatada() {
         int minutos = duracaoSegundos / 60;
         int segundos = duracaoSegundos % 60;
+
         return String.format("%02d:%02d", minutos, segundos);
     }
-    
-
 }

@@ -7,12 +7,6 @@ public class App {
         Scanner scanner = new Scanner(System.in);
         Plataforma plataforma = new Plataforma();
 
-        Usuario[] usuarios = new Usuario[500];
-        Playlist[] playlists = new Playlist[500];
-
-        int totalUsuarios = 0;
-        int totalPlaylists = 0;
-
         int opcao;
 
         do {
@@ -39,7 +33,6 @@ public class App {
             switch (opcao) {
 
                 case 1:
-
                     System.out.print("Título: ");
                     String titulo = scanner.nextLine();
 
@@ -56,13 +49,12 @@ public class App {
                         System.out.println("Música cadastrada.");
                         System.out.println("ID: " + musica.getId());
                     } else {
-                        System.out.println("Não foi possível cadastrar.");
+                        System.out.println("Não foi possível cadastrar a música.");
                     }
 
                     break;
 
                 case 2:
-
                     System.out.print("Nome: ");
                     String nome = scanner.nextLine();
 
@@ -72,24 +64,15 @@ public class App {
                     Usuario usuario = new Usuario(nome, email);
 
                     if (plataforma.cadastrarUsuario(usuario)) {
-                        usuarios[totalUsuarios] = usuario;
-                        totalUsuarios++;
-
                         System.out.println("Usuário cadastrado.");
                         System.out.println("ID: " + usuario.getId());
                     } else {
-                        System.out.println("Não foi possível cadastrar.");
+                        System.out.println("Não foi possível cadastrar o usuário.");
                     }
 
                     break;
 
                 case 3:
-
-                    if (totalUsuarios == 0) {
-                        System.out.println("Cadastre um usuário primeiro.");
-                        break;
-                    }
-
                     System.out.print("Nome da playlist: ");
                     String nomePlaylist = scanner.nextLine();
 
@@ -97,14 +80,7 @@ public class App {
                     int idUsuario = scanner.nextInt();
                     scanner.nextLine();
 
-                    Usuario dono = null;
-
-                    for (int i = 0; i < totalUsuarios; i++) {
-                        if (usuarios[i].getId() == idUsuario) {
-                            dono = usuarios[i];
-                            break;
-                        }
-                    }
+                    Usuario dono = plataforma.buscarUsuarioPorId(idUsuario);
 
                     if (dono == null) {
                         System.out.println("Usuário não encontrado.");
@@ -113,45 +89,84 @@ public class App {
 
                     Playlist playlist = new Playlist(nomePlaylist, dono);
 
-                    playlists[totalPlaylists] = playlist;
-                    totalPlaylists++;
-
-                    System.out.println("Playlist criada.");
-
-                    int adicionar;
+                    int opcaoPlaylist;
 
                     do {
-                        System.out.println("\n1 - Adicionar música");
-                        System.out.println("0 - Finalizar playlist");
-                        System.out.print("Escolha: ");
+                        System.out.println("\n=== Playlist: "
+                                + playlist.getNome() + " ===");
+                        System.out.println("1 - Adicionar música");
+                        System.out.println("2 - Remover música");
+                        System.out.println("3 - Mostrar quantidade");
+                        System.out.println("4 - Mostrar duração total");
+                        System.out.println("5 - Reproduzir tudo");
+                        System.out.println("0 - Voltar");
+                        System.out.print("Escolha uma opção: ");
 
-                        adicionar = scanner.nextInt();
+                        opcaoPlaylist = scanner.nextInt();
                         scanner.nextLine();
 
-                        if (adicionar == 1) {
+                        switch (opcaoPlaylist) {
 
-                            System.out.print("ID da música: ");
-                            int idMusica = scanner.nextInt();
-                            scanner.nextLine();
+                            case 1:
+                                System.out.print("ID da música: ");
+                                int idMusica = scanner.nextInt();
+                                scanner.nextLine();
 
-                            Musica musicaPlaylist =
-                                    plataforma.buscarMusicaPorId(idMusica);
+                                Musica musicaPlaylist =
+                                        plataforma.buscarMusicaPorId(idMusica);
 
-                            if (musicaPlaylist == null) {
-                                System.out.println("Música não encontrada.");
-                            } else if (playlist.adicionar(musicaPlaylist)) {
-                                System.out.println("Música adicionada.");
-                            } else {
-                                System.out.println("Não foi possível adicionar.");
-                            }
+                                if (musicaPlaylist == null) {
+                                    System.out.println("Música não encontrada.");
+                                } else if (playlist.adicionar(musicaPlaylist)) {
+                                    System.out.println("Música adicionada.");
+                                } else {
+                                    System.out.println(
+                                            "Não foi possível adicionar a música.");
+                                }
+
+                                break;
+
+                            case 2:
+                                System.out.print("Posição da música: ");
+                                int indice = scanner.nextInt();
+                                scanner.nextLine();
+
+                                if (playlist.removerNaPosicao(indice)) {
+                                    System.out.println("Música removida.");
+                                } else {
+                                    System.out.println("Posição inválida.");
+                                }
+
+                                break;
+
+                            case 3:
+                                System.out.println("Quantidade: "
+                                        + playlist.getQuantidade());
+                                break;
+
+                            case 4:
+                                System.out.println("Duração total: "
+                                        + playlist.getDuracaoTotalSegundos()
+                                        + " segundos");
+                                break;
+
+                            case 5:
+                                playlist.reproduzirTudo();
+                                System.out.println("Todas as músicas foram reproduzidas.");
+                                break;
+
+                            case 0:
+                                break;
+
+                            default:
+                                System.out.println("Opção inválida.");
                         }
 
-                    } while (adicionar != 0);
+                    } while (opcaoPlaylist != 0);
 
                     break;
 
                 case 4:
-
                     System.out.print("ID da música: ");
                     int id = scanner.nextInt();
                     scanner.nextLine();
@@ -173,7 +188,6 @@ public class App {
                     break;
 
                 case 5:
-
                     System.out.print("Título da música: ");
                     String tituloBusca = scanner.nextLine();
 
@@ -193,7 +207,6 @@ public class App {
                     break;
 
                 case 6:
-
                     System.out.print("ID da música: ");
                     int idReproducao = scanner.nextInt();
                     scanner.nextLine();
@@ -202,13 +215,11 @@ public class App {
                             plataforma.buscarMusicaPorId(idReproducao);
 
                     if (musicaReproducao != null) {
-
                         musicaReproducao.reproduzir();
 
                         System.out.println("Música reproduzida.");
                         System.out.println("Reproduções: "
                                 + musicaReproducao.getReproducoes());
-
                     } else {
                         System.out.println("Música não encontrada.");
                     }
@@ -216,7 +227,6 @@ public class App {
                     break;
 
                 case 7:
-
                     System.out.println("\n=== Acervo ===");
 
                     for (int i = 1;
@@ -242,6 +252,7 @@ public class App {
                     break;
 
                 case 0:
+                    System.out.println("Saindo...");
                     break;
 
                 default:

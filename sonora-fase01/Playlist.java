@@ -25,7 +25,7 @@ public class Playlist {
     }
 
     public boolean adicionar(Musica musica) {
-        if (musica == null || quantidade == 100) {
+        if (musica == null || quantidade >= musicas.length) {
             return false;
         }
 

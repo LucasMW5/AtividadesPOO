@@ -13,7 +13,7 @@ public class Plataforma {
     }
 
     public boolean cadastrarMusica(Musica musica) {
-        if (musica == null || totalMusicas == 500) {
+        if (musica == null || totalMusicas >= musicas.length) {
             return false;
         }
 
@@ -24,7 +24,7 @@ public class Plataforma {
     }
 
     public boolean cadastrarUsuario(Usuario usuario) {
-        if (usuario == null || totalUsuarios == 500) {
+        if (usuario == null || totalUsuarios >= usuarios.length) {
             return false;
         }
 
@@ -48,6 +48,16 @@ public class Plataforma {
         for (int i = 0; i < totalMusicas; i++) {
             if (musicas[i].getTitulo().equals(titulo)) {
                 return musicas[i];
+            }
+        }
+
+        return null;
+    }
+
+    public Usuario buscarUsuarioPorId(int id) {
+        for (int i = 0; i < totalUsuarios; i++) {
+            if (usuarios[i].getId() == id) {
+                return usuarios[i];
             }
         }
 
