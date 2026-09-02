@@ -1,3 +1,4 @@
+package src;
 public class Playlist {
 
     private String nome;
@@ -6,6 +7,14 @@ public class Playlist {
     private int quantidade;
 
     public Playlist(String nome, Usuario dono) {
+        if (nome == null || nome.isBlank()){
+            throw new IllegalArgumentException("Nome inválido, não pode estar em branco");
+        }
+
+        if (dono == null){
+            throw new IllegalArgumentException("Dono inválido,não pode estar em branco");
+        }
+
         this.nome = nome;
         this.dono = dono;
         this.musicas = new Musica[100];
@@ -25,27 +34,33 @@ public class Playlist {
     }
 
     public boolean adicionar(Musica musica) {
-        if (musica == null || quantidade >= musicas.length) {
-            return false;
+        if (musica == null){
+            throw new IllegalArgumentException("Música inválida, não pode ser nula");
         }
 
-        musicas[quantidade] = musica;
-        quantidade++;
+        if (quantidade == musicas.length) {
+            return false;
 
-        return true;
+        } else {
+            musicas[quantidade] = musica;
+            quantidade++;
+            return true;
+        }
     }
 
     public Musica getNaPosicao(int indice) {
         if (indice < 0 || indice >= quantidade) {
-            return null;
+            throw new IndexOutOfBoundsException("Índice inválido, " +
+                indice + " a playlist contém " + quantidade + " músicas");
         }
 
         return musicas[indice];
     }
 
-    public boolean removerNaPosicao(int indice) {
+    public void removerNaPosicao(int indice) {
         if (indice < 0 || indice >= quantidade) {
-            return false;
+            throw new IndexOutOfBoundsException("Índice inválido, " +
+                indice + " a playlist contém " + quantidade + " músicas");
         }
 
         for (int i = indice; i < quantidade - 1; i++) {
@@ -54,8 +69,6 @@ public class Playlist {
 
         musicas[quantidade - 1] = null;
         quantidade--;
-
-        return true;
     }
 
     public int getDuracaoTotalSegundos() {

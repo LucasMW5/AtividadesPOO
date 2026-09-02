@@ -1,3 +1,4 @@
+package src;
 public class Plataforma {
 
     private Musica[] musicas;

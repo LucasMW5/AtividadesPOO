@@ -1,7 +1,7 @@
+package src;
 public class Musica {
 
     private static int contador = 1;
-
     private int id;
     private String titulo;
     private String artista;
@@ -9,6 +9,18 @@ public class Musica {
     private int reproducoes;
 
     public Musica(String titulo, String artista, int duracaoSegundos) {
+        if (titulo == null || titulo.isBlank() ){
+            throw new IllegalArgumentException("Título é inválido, não pode estar vazio");
+        }
+
+        if (artista == null || artista.isBlank()){
+            throw new IllegalArgumentException("Artista é inválido, não pode estar vazio");
+        }
+
+        if (duracaoSegundos <= 0) {
+            throw new IllegalArgumentException("Duração inválida, precisa ser maior que zero");
+        }
+       
         id = contador;
         contador++;
 

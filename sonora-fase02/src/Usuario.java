@@ -1,3 +1,4 @@
+package src;
 public class Usuario {
 
     private static int contador = 0;
@@ -7,6 +8,19 @@ public class Usuario {
     private String email;
 
     public Usuario(String nome, String email) {
+
+        if (nome == null || nome.isBlank()){
+            throw new IllegalArgumentException("Nome inválido, não pode estar em branco");
+        }
+
+        if (email == null || email.isBlank()){
+            throw new IllegalArgumentException("Email inválido, não pode estar em branco");
+        }
+
+        if (!email.contains("@")){
+            throw new IllegalArgumentException("Email inválido, precisa contar @.");
+        }
+
         id = contador;
         contador++;
 
