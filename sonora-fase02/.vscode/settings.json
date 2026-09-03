@@ -5,6 +5,6 @@
     ],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
-        "d:\\dev\\workspace\\FURB\\FURB-2026_02_POO_16804\\ProjetoPratico\\lib\\junit-platform-console-standalone-6.0.0.jar"
+        "lib/junit-platform-console-standalone-6.0.0.jar"
     ]
 }
