@@ -27,7 +27,7 @@ public class MusicaTest {
 
     @Test
     public void testDuracaoValida() {
-        assertEquals(120, musica.getDuracaoEmSegundos());
+        assertEquals(120, musica.getDuracaoSegundos());
     }
 
     @Test
