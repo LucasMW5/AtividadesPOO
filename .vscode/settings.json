@@ -1,9 +1,9 @@
 {
     "java.project.sourcePaths": [
-        "src",
-        "test"
+        "sonora-fase02/src",
+        "sonora-fase02/test"
     ],
-    "java.project.outputPath": "bin",
+    "java.project.outputPath": "sonora-fase02/bin",
     "java.project.referencedLibraries": [
         "lib/junit-platform-console-standalone-6.0.0.jar"
     ]

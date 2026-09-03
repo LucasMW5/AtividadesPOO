@@ -1,4 +1,3 @@
-package src;
 public class Usuario {
 
     private static int contador = 0;

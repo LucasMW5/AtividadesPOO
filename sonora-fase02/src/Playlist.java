@@ -1,4 +1,3 @@
-package src;
 public class Playlist {
 
     private String nome;
