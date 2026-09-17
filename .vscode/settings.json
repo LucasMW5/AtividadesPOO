@@ -3,7 +3,9 @@
         "sonora-fase02/src",
         "sonora-fase02/test",
         "sonora-fase03/src",
-        "sonora-fase03/test"
+        "sonora-fase03/test",
+        "sonora-fase04/src",
+        "sonora-fase04/test"
     ],
     "java.project.outputPath": "sonora-fase02/bin",
     "java.project.referencedLibraries": [
