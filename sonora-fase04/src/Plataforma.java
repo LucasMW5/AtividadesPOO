@@ -1,43 +1,39 @@
+import java.util.ArrayList;
+
 public class Plataforma {
 
-    private Musica[] musicas;
-    private Usuario[] usuarios;
-    private int totalMusicas;
-    private int totalUsuarios;
+    private ArrayList<Musica> musicas;
+    private ArrayList<Usuario> usuarios;
 
     public Plataforma() {
-        this.musicas = new Musica[500];
-        this.usuarios = new Usuario[500];
-        this.totalMusicas = 0;
-        this.totalUsuarios = 0;
+        this.musicas = new ArrayList<Musica>();
+        this.usuarios = new ArrayList<Usuario>();
     }
 
     public boolean cadastrarMusica(Musica musica) {
-        if (musica == null || totalMusicas >= musicas.length) {
+        if (musica == null) {
             return false;
         }
 
-        musicas[totalMusicas] = musica;
-        totalMusicas++;
+        musicas.add(musica);
 
         return true;
     }
 
     public boolean cadastrarUsuario(Usuario usuario) {
-        if (usuario == null || totalUsuarios >= usuarios.length) {
+        if (usuario == null) {
             return false;
         }
 
-        usuarios[totalUsuarios] = usuario;
-        totalUsuarios++;
+        usuarios.add(usuario);
 
         return true;
     }
 
     public Musica buscarMusicaPorId(int id) {
-        for (int i = 0; i < totalMusicas; i++) {
-            if (musicas[i].getId() == id) {
-                return musicas[i];
+        for (int i = 0; i < musicas.size(); i++) {
+            if (musicas.get(i).getId() == id) {
+                return musicas.get(i);
             }
         }
 
@@ -45,9 +41,9 @@ public class Plataforma {
     }
 
     public Musica buscarMusica(String titulo) {
-        for (int i = 0; i < totalMusicas; i++) {
-            if (musicas[i].getTitulo().equals(titulo)) {
-                return musicas[i];
+        for (int i = 0; i < musicas.size(); i++) {
+            if (musicas.get(i).getTitulo().equals(titulo)) {
+                return musicas.get(i);
             }
         }
 
@@ -55,9 +51,9 @@ public class Plataforma {
     }
 
     public Usuario buscarUsuarioPorId(int id) {
-        for (int i = 0; i < totalUsuarios; i++) {
-            if (usuarios[i].getId() == id) {
-                return usuarios[i];
+        for (int i = 0; i < usuarios.size(); i++) {
+            if (usuarios.get(i).getId() == id) {
+                return usuarios.get(i);
             }
         }
 
@@ -65,10 +61,10 @@ public class Plataforma {
     }
 
     public int getTotalMusicas() {
-        return totalMusicas;
+        return musicas.size();
     }
 
     public int getTotalUsuarios() {
-        return totalUsuarios;
+        return usuarios.size();
     }
 }

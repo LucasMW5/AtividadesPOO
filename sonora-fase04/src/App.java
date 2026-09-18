@@ -18,6 +18,9 @@ public class App {
             System.out.println("5 - Buscar música por título");
             System.out.println("6 - Reproduzir uma música");
             System.out.println("7 - Listar acervo");
+            System.out.println("8 - Seguir usuário");
+            System.out.println("9 - Deixar de seguir usuário");
+            System.out.println("10 - Listar usuários seguidos");
             System.out.println("0 - Sair");
             System.out.print("Escolha uma opção: ");
 
@@ -149,11 +152,6 @@ public class App {
                                         } else if (playlist.adicionar(musicaPlaylist)) {
                                             System.out.println(
                                                     "Música adicionada.");
-
-                                        } else {
-                                            System.out.println(
-                                                    "Não foi possível adicionar "
-                                                    + "a música. Playlist cheia.");
                                         }
 
                                     } catch (NumberFormatException e) {
@@ -321,6 +319,121 @@ public class App {
                                     + musicaAcervo.getDuracaoFormatada()
                             );
                         }
+                    }
+
+                    break;
+
+                case 8:
+                    try {
+                        System.out.print("ID do usuário que vai seguir: ");
+                        int idUsuario =
+                                Integer.parseInt(scanner.nextLine());
+
+                        System.out.print("ID do usuário que será seguido: ");
+                        int idOutro =
+                                Integer.parseInt(scanner.nextLine());
+
+                        Usuario usuario =
+                                plataforma.buscarUsuarioPorId(idUsuario);
+
+                        Usuario outro =
+                                plataforma.buscarUsuarioPorId(idOutro);
+
+                        if (usuario == null || outro == null) {
+                            System.out.println("Usuário não encontrado.");
+                            break;
+                        }
+
+                        if (usuario.seguir(outro)) {
+                            System.out.println("Usuário seguido.");
+                        } else {
+                            System.out.println(
+                                    "Não foi possível seguir o usuário.");
+                        }
+
+                    } catch (NumberFormatException e) {
+                        System.out.println(
+                                "O ID precisa ser um número.");
+
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                    }
+
+                    break;
+
+                case 9:
+                    try {
+                        System.out.print("ID do usuário: ");
+                        int idUsuario =
+                                Integer.parseInt(scanner.nextLine());
+
+                        System.out.print(
+                                "ID do usuário que deseja deixar de seguir: ");
+                        int idOutro =
+                                Integer.parseInt(scanner.nextLine());
+
+                        Usuario usuario =
+                                plataforma.buscarUsuarioPorId(idUsuario);
+
+                        Usuario outro =
+                                plataforma.buscarUsuarioPorId(idOutro);
+
+                        if (usuario == null || outro == null) {
+                            System.out.println("Usuário não encontrado.");
+                            break;
+                        }
+
+                        if (usuario.deixarDeSeguir(outro)) {
+                            System.out.println(
+                                    "Deixou de seguir o usuário.");
+                        } else {
+                            System.out.println(
+                                    "O usuário não estava sendo seguido.");
+                        }
+
+                    } catch (NumberFormatException e) {
+                        System.out.println(
+                                "O ID precisa ser um número.");
+
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                    }
+
+                    break;
+
+                case 10:
+                    try {
+                        System.out.print("ID do usuário: ");
+                        int idUsuario =
+                                Integer.parseInt(scanner.nextLine());
+
+                        Usuario usuario =
+                                plataforma.buscarUsuarioPorId(idUsuario);
+
+                        if (usuario == null) {
+                            System.out.println("Usuário não encontrado.");
+                            break;
+                        }
+
+                        for (int i = 0;
+                             i < usuario.getQuantidadeSeguindo();
+                             i++) {
+
+                            Usuario seguido =
+                                    usuario.getSeguindoNaPosicao(i);
+
+                            System.out.println(
+                                    seguido.getId()
+                                    + " - "
+                                    + seguido.getNome()
+                                    + " - "
+                                    + seguido.getEmail()
+                            );
+                        }
+
+                    } catch (NumberFormatException e) {
+                        System.out.println(
+                                "O ID precisa ser um número.");
                     }
 
                     break;
